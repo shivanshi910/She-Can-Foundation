@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>She Can Foundation</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <h2 class="ngo-name">She Can Foundation</h2>
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+      </div>
+    </header>
+
+    <main class="container main-content">
+      <section class="hero">
+        <h1>Empowering Girls. Changing Futures.</h1>
+        <p class="lead">We support education, mentorship and community projects that help girls reach their full potential.</p>
+        <img src="https://picsum.photos/seed/shecan/900/420" alt="Children learning together" class="hero-img">
+        <p><a href="#about" class="btn">Learn More</a></p>
+      </section>
+
+      <section id="about" class="about">
+        <h3>About</h3>
+        <p>She Can Foundation is a non-profit organisation dedicated to creating opportunities for girls and young women through education, mentorship and community programs. We believe every child should have the tools and support they need to thrive.</p>
+      </section>
+
+      <section class="form-section">
+        <h3>Contact / Volunteer</h3>
+        <form id="contactForm" class="contact-form">
+          <label>
+            Name
+            <input type="text" name="name" id="name" required>
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" id="email" required>
+          </label>
+          <label>
+            Message
+            <textarea name="message" id="message" rows="4" required></textarea>
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="btn primary">Submit</button>
+            <button type="button" id="clearBtn" class="btn">Clear</button>
+          </div>
+        </form>
+        <div id="formMessage" class="form-message" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© <strong>She Can Foundation</strong> — Building brighter futures.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

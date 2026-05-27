@@ -1,0 +1,5 @@
+Flask>=2.0
+flask-cors>=3.0
+werkzeug>=2.0
+Flask-Limiter>=2.0
+jsonschema>=4.0

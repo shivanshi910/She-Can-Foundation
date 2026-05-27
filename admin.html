@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Admin - She Can Foundation</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      .admin-panel{padding:1rem}
+      .login-box{max-width:420px;margin:0 auto;background:var(--card);padding:1rem;border-radius:8px}
+      table{width:100%;border-collapse:collapse}
+      th,td{padding:0.5rem;border-bottom:1px solid rgba(0,0,0,0.06);text-align:left}
+    </style>
+  </head>
+  <body>
+    <div class="container admin-panel">
+      <h2>Admin Panel</h2>
+      <div id="authArea">
+        <div class="login-box">
+          <h3>Login</h3>
+          <label>Username<input id="adminUser"></label>
+          <label>Password<input id="adminPass" type="password"></label>
+          <div style="margin-top:0.5rem">
+            <button id="loginBtn" class="btn primary">Login</button>
+            <button id="logoutBtn" class="btn" style="display:none">Logout</button>
+          </div>
+          <div id="loginMsg" style="margin-top:0.6rem;color:var(--muted)"></div>
+        </div>
+      </div>
+
+      <div id="submissions" style="margin-top:1rem"></div>
+    </div>
+
+    <script>
+    async function login(){
+      const user = document.getElementById('adminUser').value.trim();
+      const pass = document.getElementById('adminPass').value;
+      const msg = document.getElementById('loginMsg');
+      msg.textContent = '';
+      try{
+        const res = await fetch('http://localhost:5501/api/login', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({username:user,password:pass}), credentials: 'include'});
+        const data = await res.json();
+        if(data.ok){
+          document.getElementById('loginBtn').style.display='none';
+          document.getElementById('logoutBtn').style.display='inline-block';
+          msg.textContent = 'Logged in';
+          loadSubmissions();
+        } else {
+          msg.textContent = data.error || 'Login failed';
+        }
+      }catch(e){msg.textContent='Login error: ' + e.message}
+    }
+
+    async function logout(){
+      await fetch('http://localhost:5501/api/logout', {method:'POST', credentials:'include'});
+      document.getElementById('loginBtn').style.display='inline-block';
+      document.getElementById('logoutBtn').style.display='none';
+      document.getElementById('submissions').innerHTML='';
+      document.getElementById('loginMsg').textContent='Logged out';
+    }
+
+    async function loadSubmissions(){
+      const area = document.getElementById('submissions');
+      area.textContent = 'Loading...';
+      try{
+        const res = await fetch('http://localhost:5501/api/submissions', {credentials: 'include'});
+        if(res.status===401){ area.textContent='Unauthorized — please login.'; return }
+        const data = await res.json();
+        if(!data.ok){ area.textContent = data.error || 'Failed to load'; return }
+        const subs = data.submissions;
+        if(subs.length===0){ area.textContent = 'No submissions yet.'; return }
+        let html = '<table><thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Message</th><th>Time</th></tr></thead><tbody>';
+        for(const s of subs){
+          html += `<tr><td>${s.id}</td><td>${s.name}</td><td>${s.email}</td><td>${s.message}</td><td>${s.created_at}</td></tr>`;
+        }
+        html += '</tbody></table>';
+        area.innerHTML = html;
+      }catch(e){ area.textContent = 'Error: ' + e.message }
+    }
+
+    document.getElementById('loginBtn').addEventListener('click', login);
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+:root{
+  --bg: #ffffff;
+  --text: #0f1724;
+  --primary: #2b8aef;
+  --muted: #6b7280;
+  --card: #f8fafc;
+}
+:root.dark{
+  --bg:#0b1220;
+  --text:#e6eef8;
+  --primary:#4ea8ff;
+  --muted:#9aa6b2;
+  --card:#071022;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;
+}
+.container{max-width:1000px;margin:0 auto;padding:1rem}
+.site-header{border-bottom:1px solid rgba(0,0,0,0.06);background:linear-gradient(0deg,transparent,transparent)}
+.site-header .container{display:flex;align-items:center;justify-content:space-between;padding:0.75rem 1rem}
+.ngo-name{margin:0;font-size:1rem;letter-spacing:0.6px}
+.theme-toggle{background:transparent;border:0;font-size:1.1rem;cursor:pointer}
+.main-content{padding:1.5rem 1rem}
+.hero{display:grid;gap:1rem;align-items:center}
+.hero h1{font-size:1.9rem;margin:0}
+.lead{color:var(--muted);max-width:70%}
+.hero-img{width:100%;max-height:420px;object-fit:cover;border-radius:8px;box-shadow:0 6px 18px rgba(11,22,34,0.06);transition:transform .4s ease}
+.hero-img:hover{transform:scale(1.02)}
+.btn{display:inline-block;padding:0.5rem 1rem;border-radius:6px;border:1px solid transparent;text-decoration:none;color:var(--text);background:var(--card);cursor:pointer}
+.btn.primary{background:var(--primary);color:#fff}
+.about{margin-top:1.5rem}
+.form-section{margin-top:1.5rem;background:var(--card);padding:1rem;border-radius:8px}
+.contact-form{display:grid;gap:0.6rem}
+.contact-form label{display:block;font-size:0.9rem}
+.contact-form input,.contact-form textarea{width:100%;padding:0.6rem;border-radius:6px;border:1px solid rgba(0,0,0,0.08);background:transparent;color:var(--text)}
+.form-actions{display:flex;gap:0.5rem;margin-top:0.5rem}
+.form-message{margin-top:0.8rem;color:var(--primary);font-weight:600}
+.form-message.error{color:#dc2626}
+.site-footer{border-top:1px solid rgba(0,0,0,0.06);margin-top:2rem;padding:1rem}
+
+@media (max-width:700px){
+  .lead{max-width:100%}
+  .hero h1{font-size:1.4rem}
+}
+
+/* small entrance animation */
+.main-content{animation:fadeIn .6s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
